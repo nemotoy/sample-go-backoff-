@@ -28,3 +28,7 @@ Default values for ExponentialBackOff.
 // lestrrat-go/backoff/exponential.go:17
 factor := float64(2)
 ```
+
+## [hashicorp/go-retryablehttp](https://github.com/hashicorp/go-retryablehttp)
+
+<!-- now ver0.5.0... -->
