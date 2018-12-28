@@ -2,6 +2,7 @@ package cenkalti
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
 	"time"
 
@@ -23,17 +24,23 @@ var as = []string{"a", "b", "c", "d", "e", "f", "g", "h"}
 
 func validate(s string) (string, error) {
 
+	rand.Seed(time.Now().UnixNano())
+
 	operation := func() error {
-		if s != "a" {
-			return fmt.Errorf("%s is not 'a'", s)
+		n := as[rand.Intn(len(as))]
+		if s != n {
+			return fmt.Errorf("%s is not %s", s, n)
 		}
 		return nil
 	}
 
 	backoff := bo.NewExponentialBackOff()
-	backoff.MaxElapsedTime = 3 * time.Second
+	// backoff.MaxElapsedTime = 10 * time.Second
 
-	err := bo.Retry(operation, backoff)
+	// setting max retries. is not thread-safe.
+	b := bo.WithMaxRetries(backoff, 10)
+
+	err := bo.Retry(operation, b)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
@@ -45,11 +52,10 @@ func TestCenkalti(t *testing.T) {
 
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
-			s, err := validate(tt.a)
+			_, err := validate(tt.a)
 			if err != nil {
 				t.Error(err)
 			}
-			t.Log(s)
 		})
 	}
 }
