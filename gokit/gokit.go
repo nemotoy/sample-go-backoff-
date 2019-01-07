@@ -9,13 +9,17 @@ import (
 
 // create sample exponential backoff duration
 func main() {
-	var d time.Duration = 1 * time.Second
 
-	for i := 0; i < 10; i++ {
-		fmt.Println("base: ", d)
+	var (
+		d          time.Duration = 1 * time.Millisecond
+		maxAttemot int           = 10
+	)
+	for i := 1; i <= maxAttemot; i++ {
 		d = conn.Exponential(d)
-		fmt.Println("dur: ", d)
-		fmt.Println("-----------------------------------")
+
+		// do something...
+
+		fmt.Printf("dur: %s, attempt: %v\n", d, i)
 		if d == time.Minute {
 			break
 		}
