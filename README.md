@@ -8,7 +8,7 @@ Default values for ExponentialBackOff.
 |:--|:--|:--|
 |InitialInterval|初期処理待機時間|500 * time.Millisecond|
 |RandomizationFactor|ゆらぎ比率|0.5|
-|Multiplier|乗数|1.5|
+|Multiplier|乗数|1.5|
 |MaxInterval|最大待機時間|60 * time.Second|
 |MaxElapsedTime|最大経過時間|15 * time.Minute|
 

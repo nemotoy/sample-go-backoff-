@@ -1,4 +1,4 @@
-package main
+package gokit
 
 import (
 	"fmt"
@@ -7,12 +7,15 @@ import (
 	"github.com/go-kit/kit/util/conn"
 )
 
+var (
+	maxAttemt int = 10
+)
+
 // create sample exponential backoff duration
 func main() {
 
 	var (
-		d         time.Duration = 1 * time.Millisecond
-		maxAttemt int           = 10
+		d time.Duration = 1 * time.Millisecond
 	)
 	for i := 1; i <= maxAttemt; i++ {
 		d = conn.Exponential(d)
