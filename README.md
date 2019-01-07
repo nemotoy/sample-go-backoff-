@@ -1,4 +1,4 @@
-# sample-go-backoff-
+# sample-go-backoff
 
 ## [cenkalti](https://github.com/cenkalti/backoff)
 
@@ -28,6 +28,12 @@ Default values for ExponentialBackOff.
 // lestrrat-go/backoff/exponential.go:17
 factor := float64(2)
 ```
+
+## [gokit](github.com/go-kit/kit/util/conn)
+
+backoff/jitterのdurationのみ生成するモジュールを提供。  
+詳細は詳細は[こちら](https://github.com/go-kit/kit/blob/master/util/conn/manager.go#L139)を参照。
+
 
 ## [hashicorp/go-retryablehttp](https://github.com/hashicorp/go-retryablehttp)
 
