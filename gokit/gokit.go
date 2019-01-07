@@ -11,10 +11,10 @@ import (
 func main() {
 
 	var (
-		d          time.Duration = 1 * time.Millisecond
-		maxAttemot int           = 10
+		d         time.Duration = 1 * time.Millisecond
+		maxAttemt int           = 10
 	)
-	for i := 1; i <= maxAttemot; i++ {
+	for i := 1; i <= maxAttemt; i++ {
 		d = conn.Exponential(d)
 
 		// do something...
