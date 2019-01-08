@@ -27,6 +27,7 @@ func validate(s string) (string, error) {
 	rand.Seed(time.Now().UnixNano())
 
 	operation := func() error {
+		fmt.Println("***")
 		n := as[rand.Intn(len(as))]
 		if s != n {
 			return fmt.Errorf("%s is not %s", s, n)
@@ -35,10 +36,11 @@ func validate(s string) (string, error) {
 	}
 
 	backoff := bo.NewExponentialBackOff()
-	// backoff.MaxElapsedTime = 10 * time.Second
+	backoff.InitialInterval = 10 * time.Millisecond
+	backoff.MaxElapsedTime = 1 * time.Second
 
-	// setting max retries. is not thread-safe.
-	b := bo.WithMaxRetries(backoff, 10)
+	// not included initial request. so, amount of requests is max 4 times.
+	b := bo.WithMaxRetries(backoff, 3)
 
 	err := bo.Retry(operation, b)
 	if err != nil {
