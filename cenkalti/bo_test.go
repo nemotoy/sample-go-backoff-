@@ -2,6 +2,7 @@ package cenkalti
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"testing"
 	"time"
@@ -42,7 +43,11 @@ func validate(s string) (string, error) {
 	// not included initial request. so, amount of requests is max 4 times.
 	b := bo.WithMaxRetries(backoff, 3)
 
-	err := bo.Retry(operation, b)
+	notify := func(err error, d time.Duration) {
+		log.Printf("err: %v, duration: %v", err, d)
+	}
+
+	err := bo.RetryNotify(operation, b, notify)
 	if err != nil {
 		return "", errors.WithStack(err)
 	}
