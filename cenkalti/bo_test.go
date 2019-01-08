@@ -38,10 +38,12 @@ func validate(s string) (string, error) {
 
 	backoff := bo.NewExponentialBackOff()
 	backoff.InitialInterval = 10 * time.Millisecond
+	backoff.RandomizationFactor = 0.5
+	backoff.Multiplier = 1.5
 	backoff.MaxElapsedTime = 1 * time.Second
 
 	// not included initial request. so, amount of requests is max 4 times.
-	b := bo.WithMaxRetries(backoff, 3)
+	b := bo.WithMaxRetries(backoff, 15)
 
 	notify := func(err error, d time.Duration) {
 		log.Printf("err: %v, duration: %v", err, d)
