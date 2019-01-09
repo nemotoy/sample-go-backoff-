@@ -6,11 +6,13 @@ Default values for ExponentialBackOff.
 
 |key|description|default|
 |:--|:--|:--|
-|InitialInterval|初期処理待機時間|500 * time.Millisecond|
+|InitialInterval|ベース待機時間|500 * time.Millisecond|
 |RandomizationFactor|ゆらぎ比率|0.5|
 |Multiplier|乗数|1.5|
-|MaxInterval|最大待機時間|60 * time.Second|
+|MaxInterval|最大ベース待機時間|60 * time.Second|
 |MaxElapsedTime|最大経過時間|15 * time.Minute|
+
+* InitialInterval/MaxInterval共にその設定値で処理されるわけではなく、その値をベースとしてrandom jitterの計算がなされる。
 
 ## [lestrrat-go](https://github.com/lestrrat-go/backoff)
 
@@ -22,7 +24,7 @@ Default values for ExponentialBackOff.
 |maxInterval|最大待機時間|2 * time.Minute|
 |maxRetries|最大リトライ回数|10|
 
-* 乗数(factor)はパッケージ内定数  
+* 乗数(factor)はパッケージ内定数  
 
 ```golang
 // lestrrat-go/backoff/exponential.go:17
